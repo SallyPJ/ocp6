@@ -1,0 +1,64 @@
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background-color: #61787F;
+    padding: 10px 20px;
+    color: white;
+    border: 1px solid black;
+}
+
+.logo {
+    height: 7.9375em;
+    width: 5.875em;
+    margin-right: 0.625em;
+}
+
+h1 {
+
+    font-size: 2.5em;
+    font-weight: lighter;
+}
+
+h2 {
+    font-size: 2.5em;
+    font-weight: 600px;
+}
+
+/* Ajustement pour les tablettes */
+@media (max-width: 1024px) {
+    header {
+        justify-content: center; /* Centrer les éléments */
+        flex-direction: column; /* Empiler les éléments verticalement */
+        text-align: center;
+    }
+
+    .logo {
+        height: 10.3125em;
+        width: 7.0625em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+}
+
+/* Ajustement pour les mobiles */
+@media (max-width: 425px) {
+    header {
+        padding: 10px;
+    }
+    }
+    .logo {
+        width: 11.375em;
+        height: 8.125em;
+    h1{
+        display: none;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+}

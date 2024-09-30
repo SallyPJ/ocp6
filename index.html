@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JustStreamIt</title>
+  <link href="assets/styles/style.css" rel="stylesheet" >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Section Meilleur film -->
+  <header>
+    <img src="assets/images/logo.svg" alt="Logo" class="logo">
+    <h1>Vidéos à la demande</h1>
+  </header>
+
+  <section id="best-movie">
+    <h2>Meilleur film</h2>
+    <div class="movie">
+      <img src="path/to/image.jpg" alt="Affiche du meilleur film">
+      <div class="movie-details">
+        <h3>Titre du film</h3>
+        <p>Résumé du film</p>
+        <button>Détails</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Films les mieux notés -->
+  <section id="top-movies">
+    <h2>Films les mieux notés</h2>
+    <div class="movie-grid">
+      <!-- Représentation des films sous forme de cartes -->
+      <div class="movie-card">
+        <img src="path/to/movie1.jpg" alt="Affiche">
+        <button>Détails</button>
+      </div>
+      <!-- Autres cartes de films -->
+    </div>
+  </section>
+
+  <!-- Sections Catégorie 1 & Catégorie 2 -->
+  <section id="category-1">
+    <h2>Catégorie 1</h2>
+    <div class="movie-grid">
+      <div class="movie-card">
+        <img src="path/to/movie2.jpg" alt="Affiche">
+        <button>Détails</button>
+      </div>
+      <!-- Autres cartes de films -->
+    </div>
+  </section>
+
+  <section id="category-2">
+    <h2>Catégorie 2</h2>
+    <div class="movie-grid">
+      <!-- Films similaires -->
+      <div class="movie-card">
+        <img src="path/to/movie3.jpg" alt="Affiche">
+        <button>Détails</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Catégories à choix -->
+  <section id="categories">
+    <h2>Autres</h2>
+    <label for="categories-select">Choisir une catégorie :</label>
+    <select id="categories-select">
+      <option value="action">Films d'action</option>
+      <option value="comedy">Comédies</option>
+      <!-- Autres catégories -->
+    </select>
+  </section>
+
+  <!-- Lien vers le JS -->
+  <script src="script.js"></script>
+</body>
+</html>
