@@ -10,62 +10,84 @@
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Section Meilleur film -->
-  <header>
-    <img src="assets/images/logo.svg" alt="Logo" class="logo">
-    <h1>Vidéos à la demande</h1>
+  <!-- Block : header -->
+  <header class="header">
+    <img src="assets/images/logo.svg" alt="Logo" class="header__logo">
+    <h1 class="header__title">Vidéos à la demande</h1>
   </header>
 
-  <section id="best-movie">
-    <h2>Meilleur film</h2>
-    <div class="movie">
-      <img src="path/to/image.jpg" alt="Affiche du meilleur film">
-      <div class="movie-details">
-        <h3>Titre du film</h3>
-        <p>Résumé du film</p>
-        <button>Détails</button>
+  <!-- Block : best-movie -->
+  <section class="best-movie">
+    <h2 class="best-movie__title">Meilleur film</h2>
+    <article class="best-movie__content">
+      <img src="path/to/image.jpg" alt="Affiche du meilleur film" class="best-movie__image">
+      <div class="best-movie__info">
+        <h3 class="best-movie__title">Titre du film</h3>
+        <p class = "best-movie__summary"> Résumé du film</p>
+        <button class="button button--primary" aria-label="Voir les détails du film">Détails</button>
       </div>
-    </div>
+    </article>
   </section>
 
-  <!-- Section Films les mieux notés -->
-  <section id="top-movies">
-    <h2>Films les mieux notés</h2>
-    <div class="movie-grid">
+  <!-- Block : top-movies-->
+  <section class="category top-movies">
+    <h2 class="category__title">Films les mieux notés</h2>
+    <div class="category__grid">
       <!-- Représentation des films sous forme de cartes -->
-      <div class="movie-card">
-        <img src="path/to/movie1.jpg" alt="Affiche">
+      <div class="movie-card">🐸 Élément 1</div>
+      <div class="movie-card">🦊 Élément 2</div>
+      <div class="movie-card">🦄 Élément 3</div>
+      <div class="movie-card">🐶 Élément 4</div>
+      <div class="movie-card">🐨 Élément 5</div>
+      <div class="movie-card">🐒 Élément 6</div>
+
+        <!--<img src="path/to/movie1.jpg" alt="Affiche"-->
         <button>Détails</button>
       </div>
       <!-- Autres cartes de films -->
     </div>
   </section>
 
-  <!-- Sections Catégorie 1 & Catégorie 2 -->
-  <section id="category-1">
-    <h2>Catégorie 1</h2>
-    <div class="movie-grid">
-      <div class="movie-card">
-        <img src="path/to/movie2.jpg" alt="Affiche">
+  <!-- Block : category--1-->
+  <section class=" category category--1">
+    <h2 class="category__title"> Catégorie 1</h2>
+    <div class="category__grid">
+      <div class="movie-card">🐸 Élément 1</div>
+      <div class="movie-card">🦊 Élément 2</div>
+      <div class="movie-card">🦄 Élément 3</div>
+      <div class="movie-card">🐶 Élément 4</div>
+      <div class="movie-card">🐨 Élément 5</div>
+      <div class="movie-card">🐒 Élément 6</div>
         <button>Détails</button>
       </div>
       <!-- Autres cartes de films -->
     </div>
   </section>
 
-  <section id="category-2">
-    <h2>Catégorie 2</h2>
-    <div class="movie-grid">
+  <!-- Block : category--1-->
+  <section class=" category category--2">
+    <h2 class="category__title">Catégorie 2</h2>
+    <div class="category__grid">
       <!-- Films similaires -->
-      <div class="movie-card">
-        <img src="path/to/movie3.jpg" alt="Affiche">
+      <div class="category__movie-card">
+         <img src="assets/images/apocalypse_now.jpg" alt="Movie Poster">
+         <div class="category__movie-overlay">
+            <h3 class="category__movie-title">Movie Title</h3>
+            <button class="details-button">Détails</button>
+         </div>
+      </div>
+      <div class="movie-card">🦊 Élément 2</div>
+      <div class="movie-card">🦄 Élément 3</div>
+      <div class="movie-card">🐶 Élément 4</div>
+      <div class="movie-card">🐨 Élément 5</div>
+      <div class="movie-card">🐒 Élément 6</div>
         <button>Détails</button>
       </div>
     </div>
   </section>
 
-  <!-- Section Catégories à choix -->
-  <section id="categories">
+  <!-- Block : category--3-->
+  <section class=" category category--3">
     <h2>Autres</h2>
     <label for="categories-select">Choisir une catégorie :</label>
     <select id="categories-select">
@@ -76,6 +98,9 @@
   </section>
 
   <!-- Lien vers le JS -->
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
+  <footer>
+  <p>© 2023 JustStreamIt. Tous droits réservés.</p>
+  </footer>
 </body>
 </html>
