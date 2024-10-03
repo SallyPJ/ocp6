@@ -4,103 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JustStreamIt</title>
-  <link href="assets/styles/style.css" rel="stylesheet" >
+  <link href="assets/styles/style.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Block : header -->
-  <header class="header">
-    <img src="assets/images/logo.svg" alt="Logo" class="header__logo">
-    <h1 class="header__title">Vidéos à la demande</h1>
-  </header>
+<!-- Block : header -->
+<header class="header">
+  <img src="assets/images/logo.svg" alt="Logo" class="header__logo">
+  <h1 class="header__title">Vidéos à la demande</h1>
+</header>
 
-  <!-- Block : best-movie -->
-  <section class="best-movie">
-    <h2 class="best-movie__title">Meilleur film</h2>
-    <article class="best-movie__content">
-      <img src="path/to/image.jpg" alt="Affiche du meilleur film" class="best-movie__image">
-      <div class="best-movie__info">
-        <h3 class="best-movie__title">Titre du film</h3>
-        <p class = "best-movie__summary"> Résumé du film</p>
-        <button class="button button--primary" aria-label="Voir les détails du film">Détails</button>
-      </div>
-    </article>
-  </section>
+<!-- Block : best-movie -->
+<section class="best-movie">
+  <h2 class="best-movie__title">Meilleur film</h2>
+  <article class="best-movie__content">
+    <!-- Le contenu sera rempli dynamiquement par le script -->
+  </article>
+</section>
 
-  <!-- Block : top-movies-->
-  <section class="category top-movies">
-    <h2 class="category__title">Films les mieux notés</h2>
-    <div class="category__grid">
-      <!-- Représentation des films sous forme de cartes -->
-      <div class="movie-card">🐸 Élément 1</div>
-      <div class="movie-card">🦊 Élément 2</div>
-      <div class="movie-card">🦄 Élément 3</div>
-      <div class="movie-card">🐶 Élément 4</div>
-      <div class="movie-card">🐨 Élément 5</div>
-      <div class="movie-card">🐒 Élément 6</div>
+<!-- Block : top-movies-->
+<section class="category top-movies">
+  <h2 class="category__title">Films les mieux notés</h2>
+  <div class="category__grid">
+    <!-- Le contenu sera rempli dynamiquement par le script -->
+  </div>
+</section>
 
-        <!--<img src="path/to/movie1.jpg" alt="Affiche"-->
-        <button>Détails</button>
-      </div>
-      <!-- Autres cartes de films -->
-    </div>
-  </section>
+<!-- Block : category--1 -->
+<section class="category category--1">
+  <h2 class="category__title">Catégorie 1</h2>
+  <div class="category__grid">
+    <!-- Le contenu sera rempli dynamiquement par le script -->
+  </div>
+</section>
 
-  <!-- Block : category--1-->
-  <section class=" category category--1">
-    <h2 class="category__title"> Catégorie 1</h2>
-    <div class="category__grid">
-      <div class="movie-card">🐸 Élément 1</div>
-      <div class="movie-card">🦊 Élément 2</div>
-      <div class="movie-card">🦄 Élément 3</div>
-      <div class="movie-card">🐶 Élément 4</div>
-      <div class="movie-card">🐨 Élément 5</div>
-      <div class="movie-card">🐒 Élément 6</div>
-        <button>Détails</button>
-      </div>
-      <!-- Autres cartes de films -->
-    </div>
-  </section>
+<!-- Block : category--2 -->
+<section class="category category--2">
+  <h2 class="category__title">Catégorie 2</h2>
+  <div class="category__grid">
+    <!-- Le contenu sera rempli dynamiquement par le script -->
+  </div>
+</section>
 
-  <!-- Block : category--1-->
-  <section class=" category category--2">
-    <h2 class="category__title">Catégorie 2</h2>
-    <div class="category__grid">
-      <!-- Films similaires -->
-      <div class="category__movie-card">
-         <img src="assets/images/apocalypse_now.jpg" alt="Movie Poster">
-         <div class="category__movie-overlay">
-            <h3 class="category__movie-title">Movie Title</h3>
-            <button class="details-button">Détails</button>
-         </div>
-      </div>
-      <div class="movie-card">🦊 Élément 2</div>
-      <div class="movie-card">🦄 Élément 3</div>
-      <div class="movie-card">🐶 Élément 4</div>
-      <div class="movie-card">🐨 Élément 5</div>
-      <div class="movie-card">🐒 Élément 6</div>
-        <button>Détails</button>
-      </div>
-    </div>
-  </section>
+<!-- Fenêtre modale cachée par défaut -->
+<div class="modal modal--hidden">
+  <div class="modal__content">
+    <span class="modal__close-button">&times;</span>
+    <h3 class="modal__title" ></h3>
+    <p class="modal__year"></p>
+    <p class="modal__genre"></p>
+    <p class="modal__classification"></p>
+    <p class ="modal_score"></p>
+    <p class="modal__director"></p>
+    <p class="modal_actors"></p>
+    <p class=" modal_duration"></p>
+    <p class="modal_country"></p>
+    <p class="modal_revenue"></p>
+    <p class="modal__summary"></p>
 
-  <!-- Block : category--3-->
-  <section class=" category category--3">
-    <h2>Autres</h2>
-    <label for="categories-select">Choisir une catégorie :</label>
-    <select id="categories-select">
-      <option value="action">Films d'action</option>
-      <option value="comedy">Comédies</option>
-      <!-- Autres catégories -->
-    </select>
-  </section>
+    <img class="modal__image" alt="Affiche du film {modal__title}>
+    <p class="modal__summary" id="modal-summary"></p>
+    <!-- Autres détails à afficher dans la modale -->
+  </div>
+</div>
 
-  <!-- Lien vers le JS -->
-  <script src="js/script.js"></script>
-  <footer>
+<!-- Block : category--3-->
+<section class=" category category--3">
+  <h2>Autres</h2>
+  <label for="categories-select">Choisir une catégorie :</label>
+  <select id="categories-select">
+    <option value="action">Films d'action</option>
+    <option value="comedy">Comédies</option>
+    <!-- Autres catégories -->
+  </select>
+</section>
+<!-- Lien vers le JS -->
+<script src="js/script.js"></script>
+<footer>
   <p>© 2023 JustStreamIt. Tous droits réservés.</p>
-  </footer>
+</footer>
 </body>
 </html>

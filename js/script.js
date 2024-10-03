@@ -42,19 +42,56 @@ function displayMovie(movieDetails, container) {
             <button class="button button--primary" aria-label="Voir les détails du film">Détails</button>
         </div>
     `;
+
+    // Ajouter l'écouteur d'événement pour ouvrir la modale
+    const detailsButton = container.querySelector('.button--primary');
+    detailsButton.addEventListener('click', () => {
+        openModal(movieDetails);
+    });
 }
 
 // Fonction pour afficher une liste de films dans une grille
 function displayMoviesList(moviesDetails, container) {
-    container.innerHTML = '';
+    container.innerHTML = ''; // Vide le conteneur existant
+
     moviesDetails.forEach(movie => {
+        // Créer la carte du film
         const movieCard = document.createElement('div');
         movieCard.classList.add('movie-card');
-        movieCard.innerHTML = `
-            <img src="${movie.image_url}" alt="Affiche de ${movie.title}">
-            <h3>${movie.title}</h3>
-            <button>Détails</button>
-        `;
+
+        // Créer l'image du film
+        const image = document.createElement('img');
+        image.src = movie.image_url;
+        image.alt = `Affiche de ${movie.title}`;
+        image.classList.add('movie-card__image');
+
+        // Créer l'overlay contenant le titre et le bouton "Détails"
+        const overlay = document.createElement('div');
+        overlay.classList.add('movie-card__overlay');
+
+        const title = document.createElement('h3');
+        title.textContent = movie.title;
+        title.classList.add('movie-card__title');
+
+        const detailsButton = document.createElement('button');
+        detailsButton.textContent = 'Détails';
+        detailsButton.classList.add('movie-card__details-button', 'button', 'button--primary');
+        detailsButton.setAttribute('aria-label', 'Voir les détails du film');
+
+        // Ajouter l'écouteur d'événement pour ouvrir la modale
+        detailsButton.addEventListener('click', () => {
+            openModal(movie);
+        });
+
+        // Ajouter les éléments à l'overlay
+        overlay.appendChild(title);
+        overlay.appendChild(detailsButton);
+
+        // Ajouter l'image et l'overlay à la carte du film
+        movieCard.appendChild(image);
+        movieCard.appendChild(overlay);
+
+        // Ajouter la carte au conteneur de la grille
         container.appendChild(movieCard);
     });
 }
@@ -96,8 +133,45 @@ async function displayCategoryMovies(category, containerSelector) {
     const categoryContainer = document.querySelector(containerSelector);
     displayMoviesList(categoryMoviesDetails, categoryContainer);
 }
+function openModal(movieDetails) {
+    console.log('Ouverture de la modale', movieDetails); // Vérification du clic
 
-// Appels de fonctions pour remplir chaque section
+    // Sélectionner les éléments de la modale
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalImage = document.getElementById('modal-image');
+    const modalSummary = document.getElementById('modal-summary');
+
+    // Remplir la modale avec les informations du film
+    modalTitle.textContent = movieDetails.title;
+    modalImage.src = movieDetails.image_url;
+    modalImage.alt = `Affiche de ${movieDetails.title}`;
+    modalSummary.textContent = movieDetails.description || 'Résumé non disponible.';
+
+    // Afficher la modale
+    modal.classList.remove('modal--hidden');
+}
+
+function initializeModalCloseEvents() {
+    const modal = document.getElementById('modal');
+    const closeButton = document.querySelector('.modal__close-button');
+
+    // Ajouter un écouteur d'événement pour fermer la modale
+    closeButton.addEventListener('click', () => {
+        modal.classList.add('modal--hidden');
+    });
+
+    // Fermer la modale si l'utilisateur clique en dehors de la modale
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.classList.add('modal--hidden');
+        }
+    });
+}
+
+// Initialiser les événements de fermeture de la modale au chargement de la page
+initializeModalCloseEvents();
+
 displayTopMovie();
 displayTopMovies();
 displayCategoryMovies('Action', '.category--1 .category__grid'); // Remplacez 'Action' par le genre de catégorie 1
