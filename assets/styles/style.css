@@ -33,9 +33,39 @@ h2 {
 }
 
 .best-movie__content {
-    display: flex;
-    margin: 5px;
+    display: grid;
+    position: relative;
+    width: 100%;
+    margin: 0.5em;
     border: 5px solid black;
+    grid-template-columns: auto 1fr;
+
+}
+
+.best-movie__image{
+
+    margin : 0.5em;
+    grid-column: 1;
+    height: 350px;
+    width: auto;
+    object-fit: contain;
+    object-position: center; /* Centre l'image lors du découpage */
+}
+
+.best-movie__info {
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+}
+.best-movie__title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.best-movie__summary {
+    font-size: 1.5em;
+    font-weight: lighter;
 }
 
 .button {
@@ -48,49 +78,22 @@ h2 {
 }
 
 .button--primary {
-    font-size: 14px;
-    padding: 10px 20px;
+    border-radius : 25px;
+    justify-self: end;
+    font-size: 1em;
+    padding: 15px 20px;
     transition: background-color 0.3s ease;
+    margin-bottom: 1em;
+    margin-right: 0.5em;
+
+
 }
 
 .button--primary:hover {
     background-color: #c00;
 }
 
-/* Styles pour la modale */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
 
-.modal--hidden {
-    display: none;
-}
-
-.modal__content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 80%;
-    position: relative;
-}
-
-.modal__close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-}
 
 /* Styles pour la carte de film */
 .movie-card {
@@ -221,4 +224,77 @@ h2 {
     width: 100%; /* Assure que le conteneur parent s'étend sur toute la largeur de la page */
     overflow: hidden; /* Empêche le dépassement de la grille */
     padding: 20px; /* Ajoute de l'espacement intérieur */
+}
+
+/* Styles pour la modale */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal--hidden {
+    display: none;
+}
+
+.modal__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Deux colonnes égales */
+    grid-template-rows: auto auto auto 1fr auto; /* Cinq lignes pour chaque section */
+    gap: 1em; /* Espacement entre les éléments */
+    padding: 20px;
+    max-width: 800px;
+    width: 90%;
+    background: #fff;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Positionnement des éléments dans la grille */
+.modal__header {
+    grid-column: 1; /* Colonne 1 */
+    grid-row: 1; /* Ligne 1 */
+    align-self: start; /* Aligner en haut */
+}
+
+.modal__image {
+    grid-column: 2; /* Colonne 2 */
+    grid-row: 1; /* Ligne 1 */
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.modal__long_description {
+    grid-column: 1 / -1; /* Occupe toute la largeur (colonne 1 à 2) */
+    grid-row: 2; /* Ligne 2 */
+}
+
+.modal__actors {
+    grid-column: 1 / -1; /* Occupe toute la largeur (colonne 1 à 2) */
+    grid-row: 3; /* Ligne 3 */
+}
+
+.modal__close-button {
+    grid-column: 1 / -1; /* Centré sur toute la largeur */
+    grid-row: 4; /* Ligne 4 */
+    justify-self: center; /* Centrer horizontalement */
+    padding: 10px 20px;
+    background-color: #FA0B0B;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal__close-button:hover {
+    background-color: #c00;
 }

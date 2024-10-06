@@ -19,68 +19,98 @@
 <!-- Block : best-movie -->
 <section class="best-movie">
   <h2 class="best-movie__title">Meilleur film</h2>
-  <article class="best-movie__content">
-    <!-- Le contenu sera rempli dynamiquement par le script -->
-  </article>
+  <article class="best-movie__content"></article>
 </section>
 
 <!-- Block : top-movies-->
 <section class="category top-movies">
   <h2 class="category__title">Films les mieux notés</h2>
   <div class="category__grid">
-    <!-- Le contenu sera rempli dynamiquement par le script -->
   </div>
 </section>
 
-<!-- Block : category--1 -->
+<!-- Block : category--1 : Crime -->
 <section class="category category--1">
-  <h2 class="category__title">Catégorie 1</h2>
+  <h2 class="category__title">Crime</h2>
   <div class="category__grid">
-    <!-- Le contenu sera rempli dynamiquement par le script -->
   </div>
 </section>
 
-<!-- Block : category--2 -->
+<!-- Block : category--2 : Comedy -->
 <section class="category category--2">
-  <h2 class="category__title">Catégorie 2</h2>
-  <div class="category__grid">
-    <!-- Le contenu sera rempli dynamiquement par le script -->
-  </div>
+  <h2 class="category__title">Comedy</h2>
+  <div class="category__grid"></div>
 </section>
+
+<!-- Block : category--3-->
+<section class=" category category--genres">
+  <h2 class="category__title">Autres</h2>
+  <label for="categories-select">Choisir une catégorie :</label>
+  <select id="categories-select">
+    <option value="">Sélectionnez un genre</option>
+  </select>
+    <div class="category__grid"></div>
+</section>
+
+<!-- Template pour le meilleur film -->
+<template id="best-movie-template">
+    <img src="" alt="" class="best-movie__image">
+    <div class="best-movie__info">
+      <h3 class="best-movie__title"></h3>
+      <p class="best-movie__summary"></p>
+      <button class="button button--primary" aria-label="Voir les détails du film">Détails</button>
+    </div>
+</template>
+
+<!-- Template pour les cartes de films -->
+<template id="movie-card-template">
+  <div class="movie-card">
+    <img src="" alt="" class="movie-card__image">
+    <div class="movie-card__overlay">
+      <h3 class="movie-card__title"></h3>
+      <button class="movie-card__details-button button button--primary" aria-label="Voir les détails du film">Détails</button>
+    </div>
+  </div>
+</template>
 
 <!-- Fenêtre modale cachée par défaut -->
-<div class="modal modal--hidden">
+<div id="modal" class="modal modal--hidden">
   <div class="modal__content">
-    <span class="modal__close-button">&times;</span>
-    <h3 class="modal__title" ></h3>
-    <p class="modal__year"></p>
-    <p class="modal__genre"></p>
-    <p class="modal__classification"></p>
-    <p class ="modal_score"></p>
-    <p class="modal__director"></p>
-    <p class="modal_actors"></p>
-    <p class=" modal_duration"></p>
-    <p class="modal_country"></p>
-    <p class="modal_revenue"></p>
-    <p class="modal__summary"></p>
-
-    <img class="modal__image" alt="Affiche du film {modal__title}>
-    <p class="modal__summary" id="modal-summary"></p>
-    <!-- Autres détails à afficher dans la modale -->
+    <div class="modal__header">
+      <h3 class="modal__title" ></h3>
+      <p class="modal__year"></p>
+      <span class="modal__separator"> - </span>
+      <p class="modal__genres"></p>
+      <p class="modal__rated"></p>
+      <span class="modal__separator"></span>
+      <p class="modal_duration">
+        <span class="modal__duration--value"></span>
+        <span class="modal__duration--unit">minutes</span>
+      </p>
+      <p class="modal__countries"></p>
+      <p class ="modal__imdb_score">
+        <span class="modal__imdb_score--title">Score IMDB : </span>
+        <span class="modal__imdb_score--value"></span>
+      </p>
+      <p class="modal__worldwide_gross_income">
+        <span class="modal__worldwide-gross-income--title">Recette : </span>
+        <span class="modal__worldwide-gross-income--value"></span>
+      </p>
+      <p class="modal__director">
+        <span class="modal__director--title"> Réalisé par : </span>
+        <span class="modal__director--name"></span>
+      </p>
+    </div>
+    <img class="modal__image" alt="Affiche du film {modal__title}">
+    <p class="modal__long_description"></p>
+    <p class="modal__actors">
+    <span class="modal__actors--title"> Avec : </span>
+    <span class="modal__actors--list"></span>
+    </p>
+    <button class="modal__close-button">Fermer</button>
   </div>
 </div>
 
-<!-- Block : category--3-->
-<section class=" category category--3">
-  <h2>Autres</h2>
-  <label for="categories-select">Choisir une catégorie :</label>
-  <select id="categories-select">
-    <option value="action">Films d'action</option>
-    <option value="comedy">Comédies</option>
-    <!-- Autres catégories -->
-  </select>
-</section>
-<!-- Lien vers le JS -->
 <script src="js/script.js"></script>
 <footer>
   <p>© 2023 JustStreamIt. Tous droits réservés.</p>
