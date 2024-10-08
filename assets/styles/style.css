@@ -77,7 +77,7 @@ h2 {
     border: none;
 }
 
-.button--primary {
+.button__details--primary {
     border-radius : 25px;
     justify-self: end;
     font-size: 1em;
@@ -89,7 +89,7 @@ h2 {
 
 }
 
-.button--primary:hover {
+.button__details--primary:hover {
     background-color: #c00;
 }
 
@@ -147,8 +147,8 @@ h2 {
     align-self: start; /* Aligné en haut */
 }
 
-/* Bouton "Détails" */
-.movie-card__details-button {
+/* Bouton "Détails des movie cards" */
+.button__details--secondary {
     background-color: #2D2C2C;
     color: #fff;
     grid-column : 2;
@@ -171,45 +171,8 @@ h2 {
 }
 
 /* Effet de survol pour le bouton */
-.movie-card__details-button:hover {
+.button__details--secondary:hover {
     background-color: #666;
-}
-
-
-/* Ajustement pour les tablettes */
-@media (max-width: 1024px) {
-    .header__logo {
-        height: auto;
-        width: 7.0625em;
-        margin-right: 0.625em;
-    }
-
-    h2 {
-        font-size: 1.5em;
-    }
-    .category__grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
-    }
-}
-
-/* Ajustement pour les mobiles */
-@media (max-width: 425px) {
-    header {
-        padding: 10px;
-    }
-    .header__logo {
-        height: auto;
-        width: 11.375em;
-    }
-    h1 {
-        display: none;
-    }
-    h2 {
-        font-size: 1.5em;
-    }
-    .category__grid {
-        grid-template-columns: 1fr; /* 1 colonne */
-    }
 }
 
 .category__grid {
@@ -220,6 +183,7 @@ h2 {
     max-width: 100%;
 
 }
+
 .category {
     width: 100%; /* Assure que le conteneur parent s'étend sur toute la largeur de la page */
     overflow: hidden; /* Empêche le dépassement de la grille */
@@ -298,3 +262,86 @@ h2 {
 .modal__close-button:hover {
     background-color: #c00;
 }
+
+
+/* Ajustement pour les tablettes */
+@media (min-width: 426px) and (max-width: 1024px) {
+    .header__logo {
+        height: auto;
+        width: 7.0625em;
+        margin-right: 0.625em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .category__grid > .movie-card:nth-child(n+5) {
+        display: none; /* Masque les cartes de films à partir de la 3ème */
+    }
+
+    .category__grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 colonnes */
+        grid-auto-rows: auto !important; /* 2 lignes */
+        gap : 1em;
+        max-height: none !important;
+        overflow: hidden; /* Cache les films supplémentaires */
+    }
+
+    .toggle-button {
+        display: inline-block;
+    }
+}
+
+/* Ajustement pour les mobiles */
+@media (max-width: 425px) {
+    header {
+        padding: 10px;
+    }
+
+    .header__logo {
+        height: auto;
+        width: 11.375em;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .category__grid {
+        grid-template-columns: 1fr !important; /* 1 colonne */
+        grid-template-rows: auto; /* Ajustement automatique des lignes */
+        max-height: none !important;
+
+    }
+
+    .category__grid > .movie-card:nth-child(n+3) {
+        display: none; /* Masque les cartes de films à partir de la 3ème */
+    }
+
+    .best-movie__content {
+        display: flex; /* Passez en flex pour une mise en colonne facile */
+        flex-direction: column; /* Les éléments s'empilent en colonne */
+        align-items: center; /* Centre horizontalement tous les éléments */
+        margin: 0 auto; /* Centre la section */
+        padding: 1em;
+
+    }
+
+    .best-movie__image {
+        width: 100%; /* L'image occupe toute la largeur */
+        max-width: 350px; /* Ajustez si nécessaire */
+        height: auto; /* Ajustement automatique de la hauteur */
+        margin: 0; /* Supprimez les marges pour un alignement propre */
+    }
+    .toggle-button {
+        display: inline-block;
+    }
+
+    }
+
+

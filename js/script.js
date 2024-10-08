@@ -28,7 +28,7 @@ function displayMovie(movieDetails, container) {
     const movieImage = template.querySelector('.best-movie__image');
     const movieTitle = template.querySelector('.best-movie__title');
     const movieSummary = template.querySelector('.best-movie__summary');
-    const detailsButton = template.querySelector('.button--primary');
+    const detailsButton = template.querySelector('.button__details--primary');
 
     movieImage.src = movieDetails.image_url;
     movieImage.alt = `Affiche de ${movieDetails.title}`;
@@ -58,7 +58,7 @@ function createMovieCard(movie) {
     const movieCard = template.querySelector('.movie-card');
     const movieImage = template.querySelector('.movie-card__image');
     const movieTitle = template.querySelector('.movie-card__title');
-    const detailsButton = template.querySelector('.movie-card__details-button');
+    const detailsButton = template.querySelector('.button__details--secondary');
 
     movieImage.src = movie.image_url;
     movieImage.alt = `Affiche de ${movie.title}`;
@@ -79,27 +79,32 @@ async function displayTopMovie() {
     } catch (error) {
         console.error('Erreur lors de l\'affichage du meilleur film :', error);
     }
+
 }
 
-// Fonction d'affichage des films les mieux notés
-async function displayTopMovies() {
-    try {
-        const moviesData = await fetchMovies('sort_by=-imdb_score,-votes&page_size=7');
-        const topMoviesDetails = await Promise.all(
-            moviesData.results.slice(1).map(movie => fetchMovieDetails(movie.id))
-        );
-        displayMoviesList(topMoviesDetails, document.querySelector('.top-movies .category__grid'));
-    } catch (error) {
-        console.error('Erreur lors de l\'affichage des films les mieux notés :', error);
-    }
-}
-
-// Fonction d'affichage des films par catégorie
 async function displayCategoryMovies(category, containerSelector) {
+    let queryParams = '';
+
+    // Si la catégorie est "top", ajuster la requête pour afficher les films les mieux notés
+    if (category === 'top') {
+        queryParams = 'sort_by=-imdb_score,-votes&page_size=7';
+    } else {
+        // Si une catégorie spécifique est sélectionnée, filtrer par genre
+        queryParams = `genre=${category}&sort_by=-imdb_score,-votes&page_size=6`;
+    }
+
     try {
-        const moviesData = await fetchMovies(`genre=${category}&sort_by=-imdb_score,-votes&page_size=6`);
+        // Récupérer les films de la catégorie ou les films les mieux notés
+        const moviesData = await fetchMovies(queryParams);
+        // Si on est dans la catégorie "top", exclure le premier film
+        let moviesToDisplay = moviesData.results;
+        if (category === 'top') {
+            moviesToDisplay = moviesToDisplay.slice(1); // Exclure le premier résultat
+        }
+
+        // Récupérer les détails des films (sauf le premier si 'top')
         const categoryMoviesDetails = await Promise.all(
-            moviesData.results.map(movie => fetchMovieDetails(movie.id))
+            moviesToDisplay.map(movie => fetchMovieDetails(movie.id))
         );
         displayMoviesList(categoryMoviesDetails, document.querySelector(containerSelector));
     } catch (error) {
@@ -181,10 +186,11 @@ document.getElementById('categories-select').addEventListener('change', (event) 
     if (selectedGenre) displayCategoryMovies(selectedGenre, '.category--genres .category__grid');
 });
 
+
 // Initialisation des événements et affichage des films
 initializeModalCloseEvents();
 displayTopMovie();
-displayTopMovies();
+displayCategoryMovies('top', '.top-movies .category__grid')
 displayCategoryMovies('Crime', '.category--1 .category__grid');
 displayCategoryMovies('Comedy', '.category--2 .category__grid');
 fetchAllGenres();
