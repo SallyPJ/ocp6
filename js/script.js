@@ -63,11 +63,11 @@ const fetchMovieDetails = (movieId) => fetchApiData(movieId);
  * @param {HTMLElement} container - The container element where the movie will be displayed.
  */
 function displayMovie(movieDetails, container) {
-    const template = document.querySelector('.best-movie-template').content.cloneNode(true);
+    const template = document.querySelector('.template__best-movie').content.cloneNode(true);
     const movieImage = template.querySelector('.best-movie__image');
     const movieTitle = template.querySelector('.best-movie__title');
     const movieSummary = template.querySelector('.best-movie__summary');
-    const detailsButton = template.querySelector('.button__details--primary');
+    const detailsButton = template.querySelector('.best-movie__button--details');
 
     movieImage.src = movieDetails.image_url;
     movieImage.alt = `Affiche de ${movieDetails.title}`;
@@ -100,11 +100,11 @@ function displayMoviesList(moviesDetails, container) {
  * @returns {HTMLElement} - The movie card element.
  */
 function createMovieCard(movie) {
-    const template = document.querySelector('.movie-card-template').content.cloneNode(true);
+    const template = document.querySelector('.template__movie-card').content.cloneNode(true);
     const movieCard = template.querySelector('.movie-card');
     const movieImage = template.querySelector('.movie-card__image');
     const movieTitle = template.querySelector('.movie-card__title');
-    const detailsButton = template.querySelector('.button__details--secondary');
+    const detailsButton = template.querySelector('.movie-card__button--details');
 
     movieImage.src = movie.image_url;
     movieImage.alt = `Affiche de ${movie.title}`;
@@ -200,7 +200,7 @@ function openModal(movieDetails) {
  */
 function initializeModalCloseEvents() {
     const modal = document.getElementById('modal');
-    const closeButton = document.querySelector('.modal__close-button');
+    const closeButton = document.querySelector('.modal__button--close');
     closeButton.addEventListener('click', () => modal.classList.add('modal--hidden'));
     window.addEventListener('click', (event) => {
         if (event.target === modal) modal.classList.add('modal--hidden');
@@ -283,11 +283,11 @@ function manageToggleButton(container, totalMovies) {
         visibleMovies = 6; // Desktop
     }
 
-    const existingButton = container.parentNode.querySelector('.toggle-button');
+    const existingButton = container.parentNode.querySelector('.category__button--toggle');
 
     if (!existingButton && totalMovies > visibleMovies && window.innerWidth < 1024) {
         const button = document.createElement('button');
-        button.classList.add('toggle-button');
+        button.classList.add('category__button--toggle');
         button.textContent = 'Voir plus';
         container.parentNode.appendChild(button); // Add bouton at the end of the movies grid
 

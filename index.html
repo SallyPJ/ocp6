@@ -43,7 +43,7 @@
   </div>
 </section>
 
-<!-- Block : category--3 : all genres -->
+<!-- Block : category--3-->
 <section class=" category category--genres">
   <h2 class="category__title">Autres</h2>
   <label for="categories-select">Choisir une catégorie :</label>
@@ -52,25 +52,26 @@
   </select>
     <div class="category__grid">
     </div>
+
 </section>
 
 <!-- Template for best movie article-->
-<template class="best-movie-template">
+<template class="template__best-movie">
     <img src="" alt="" class="best-movie__image">
     <div class="best-movie__info">
       <h3 class="best-movie__title"></h3>
       <p class="best-movie__summary"></p>
-      <button class="button__details--primary" aria-label="Voir les détails du film">Détails</button>
+      <button class="button best-movie__button--details" aria-label="Voir les détails du film">Détails</button>
     </div>
 </template>
 
 <!-- Template for movie cards -->
-<template class="movie-card-template">
+<template class="template__movie-card">
   <div class="movie-card">
     <img src="" alt="" class="movie-card__image">
     <div class="movie-card__overlay">
       <h3 class="movie-card__title"></h3>
-      <button class=" button button__details--secondary" aria-label="Voir les détails du film">Détails</button>
+      <button class=" button movie-card__button--details" aria-label="Voir les détails du film">Détails</button>
     </div>
   </div>
 </template>
@@ -107,7 +108,7 @@
     <span class="modal__actors--title"> Avec : </span>
     <span class="modal__actors--list"></span>
     </p>
-    <button class="modal__close-button">Fermer</button>
+    <button class=" button modal__button--close">Fermer</button>
   </div>
 </div>
 
