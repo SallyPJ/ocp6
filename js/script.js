@@ -47,6 +47,8 @@ function displayMovie(movieDetails, container) {
 function displayMoviesList(moviesDetails, container) {
     container.innerHTML = '';
     moviesDetails.forEach(movie => container.appendChild(createMovieCard(movie)));
+    // Vérifier s'il est nécessaire d'ajouter le bouton "Voir plus"
+    manageToggleButton(container, moviesDetails.length);
 }
 
 // Création d'une carte de film
@@ -120,13 +122,13 @@ function openModal(movieDetails) {
     modal.querySelector('.modal__title').textContent = movieDetails.title;
     modal.querySelector('.modal__image').src = movieDetails.image_url;
     modal.querySelector('.modal__image').alt = `Affiche de ${movieDetails.title}`;
-    modal.querySelector('.modal__year').textContent = movieDetails.year;
+    modal.querySelector('.modal__year').textContent = `Année : ${movieDetails.year} `;
     modal.querySelector('.modal__genres').textContent = movieDetails.genres.join(', ');
-    modal.querySelector('.modal__rated').textContent = movieDetails.rated;
+    modal.querySelector('.modal__rated').textContent = movieDetails.rated && movieDetails.rated.toLowerCase().includes('not rated') ? 'PG Inconnu ' : `PG: ${movieDetails.rated} -`;
     modal.querySelector('.modal__duration--value').textContent = movieDetails.duration;
-    modal.querySelector('.modal__countries').textContent = movieDetails.countries.join(', ');
+    modal.querySelector('.modal__countries').textContent = `(${movieDetails.countries.join('/ ')})`;
     modal.querySelector('.modal__imdb_score--value').textContent = movieDetails.imdb_score || 'Non noté';
-    modal.querySelector('.modal__worldwide-gross-income--value').textContent = movieDetails.worldwide_gross_income || 'Inconnue';
+    modal.querySelector('.modal__worldwide-gross-income--value').textContent = movieDetails.worldwide_gross_income ? `${movieDetails.worldwide_gross_income} dollars` : 'Inconnue';
     modal.querySelector('.modal__director--name').textContent = movieDetails.directors.join(', ') || 'Inconnu';
     modal.querySelector('.modal__long_description').textContent = movieDetails.long_description;
     modal.querySelector('.modal__actors--list').textContent = movieDetails.actors.join(', ');
@@ -187,6 +189,62 @@ document.getElementById('categories-select').addEventListener('change', (event) 
 });
 
 
+
+// Fonction pour gérer l'ajout du bouton "Voir plus" si nécessaire
+function manageToggleButton(container, totalMovies) {
+    // Nombre de films visibles par défaut en fonction de la taille de l'écran
+    let visibleMovies;
+    if (window.innerWidth <= 600) {
+        visibleMovies = 2; // Mobile
+    } else if (window.innerWidth <= 1024) {
+        visibleMovies = 4; // Tablette
+    } else {
+        visibleMovies = 6; // Ordinateur
+    }
+// Vérifier si un bouton "Voir plus" existe déjà pour cette catégorie
+    const existingButton = container.parentNode.querySelector('.toggle-button');
+
+    // Ajouter un bouton "Voir plus" seulement si aucun bouton n'existe déjà et qu'il y a plus de films que visibles
+    if (!existingButton && totalMovies > visibleMovies && window.innerWidth < 1024) {
+        const button = document.createElement('button');
+        button.classList.add('toggle-button');
+        button.textContent = 'Voir plus';
+        container.parentNode.appendChild(button); // Ajouter le bouton après la grille des films
+
+        // Ajouter l'événement au bouton pour afficher/masquer les films cachés
+        button.addEventListener('click', () => toggleMovies(container, visibleMovies, button));
+    }
+}
+
+// Fonction pour afficher les films cachés
+function showMoreMovies(container, visibleMovies, button) {
+    // Afficher les films cachés
+    const hiddenMovies = container.querySelectorAll(`.movie-card:nth-child(n+${visibleMovies + 1})`);
+    hiddenMovies.forEach(movie => movie.style.display = 'block');
+
+    // Masquer le bouton après l'affichage des films cachés
+    button.style.display = 'none';
+}
+function toggleMovies(container, visibleMovies, button) {
+    const hiddenMovies = container.querySelectorAll(`.movie-card:nth-child(n+${visibleMovies + 1})`);
+
+    if (button.textContent === 'Voir plus') {
+        // Afficher les films cachés
+        hiddenMovies.forEach(movie => movie.style.display = 'block');
+        button.textContent = 'Voir moins';
+    } else {
+        // Revenir à l'état initial (masquer les films)
+        hiddenMovies.forEach(movie => movie.style.display = 'none');
+        button.textContent = 'Voir plus';
+    }
+}
+
+window.addEventListener('resize', () => {
+    document.querySelectorAll('.category__grid').forEach(container => {
+        const totalMovies = container.children.length;
+        manageToggleButton(container, totalMovies); // Recalcule l'affichage du bouton selon la taille de l'écran
+    });
+});
 // Initialisation des événements et affichage des films
 initializeModalCloseEvents();
 displayTopMovie();
