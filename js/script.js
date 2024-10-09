@@ -1,7 +1,26 @@
-// Définition de la base de l'URL de l'API
+// ==========================
+// 1. Configuration
+// ==========================
+
+/**
+ * The base URL of the API for fetching movie data.
+ * @constant {string}
+ */
 const apiBaseUrl = 'http://localhost:8000/api/v1/titles';
 
-// Fonction générique pour effectuer une requête à l'API
+// ==========================
+// 2. Data Fetching Functions (API)
+// ==========================
+
+/**
+ * Generic function to fetch data from the API.
+ * Handles HTTP errors and returns the parsed JSON data.
+ *
+ * @async
+ * @param {string} [endpoint=''] - The API endpoint to fetch data from.
+ * @returns {Promise<Object>} - A promise that resolves to the parsed JSON data from the API.
+ * @throws {Error} - Throws an error if the API request fails.
+ */
 async function fetchApiData(endpoint = '') {
     const url = `${apiBaseUrl}/${endpoint}`;
     try {
@@ -16,15 +35,35 @@ async function fetchApiData(endpoint = '') {
     }
 }
 
-// Fonctions de récupération de données
+/**
+ * Fetches a list of movies with the specified query parameters.
+ *
+ * @param {string} [queryParams=''] - Query parameters to filter the list of movies.
+ * @returns {Promise<Object>} - A promise that resolves to the list of movies.
+ */
 const fetchMovies = (queryParams = '') => fetchApiData(`?${queryParams}`);
+
+/**
+ * Fetches the details of a movie by its unique ID.
+ *
+ * @param {number} movieId - The unique identifier of the movie.
+ * @returns {Promise<Object>} - A promise that resolves to the movie details.
+ */
 const fetchMovieDetails = (movieId) => fetchApiData(movieId);
 
-function displayMovie(movieDetails, container) {
-    // Récupérer le template
-    const template = document.getElementById('best-movie-template').content.cloneNode(true);
+// ==========================
+// 3. Movie card et article Display Functions
+// ==========================
 
-    // Mettre à jour les éléments avec les données du film
+/**
+ * Displays the details of a single movie.
+ * Updates the movie's image, title, summary, and binds the details button.
+ *
+ * @param {Object} movieDetails - The details of the movie to display.
+ * @param {HTMLElement} container - The container element where the movie will be displayed.
+ */
+function displayMovie(movieDetails, container) {
+    const template = document.getElementById('best-movie-template').content.cloneNode(true);
     const movieImage = template.querySelector('.best-movie__image');
     const movieTitle = template.querySelector('.best-movie__title');
     const movieSummary = template.querySelector('.best-movie__summary');
@@ -34,29 +73,34 @@ function displayMovie(movieDetails, container) {
     movieImage.alt = `Affiche de ${movieDetails.title}`;
     movieTitle.textContent = movieDetails.title;
     movieSummary.textContent = movieDetails.description || 'Résumé non disponible.';
-
-    // Attacher l'événement d'ouverture de la modale
     detailsButton.addEventListener('click', () => openModal(movieDetails));
 
-    // Vider le conteneur et y ajouter le template cloné
     container.innerHTML = '';
     container.appendChild(template);
 }
 
-// Fonction d'affichage de plusieurs films sous forme de cartes
+/**
+ * Displays a list of movies in the specified container.
+ * Each movie is displayed as a card with an image, title, and details button.
+ *
+ * @param {Array<Object>} moviesDetails - An array of movie details to display.
+ * @param {HTMLElement} container - The container element where the movies will be displayed.
+ */
 function displayMoviesList(moviesDetails, container) {
     container.innerHTML = '';
     moviesDetails.forEach(movie => container.appendChild(createMovieCard(movie)));
-    // Vérifier s'il est nécessaire d'ajouter le bouton "Voir plus"
     manageToggleButton(container, moviesDetails.length);
 }
 
-// Création d'une carte de film
+/**
+ * Creates a movie card for a given movie.
+ * The card contains the movie's image, title, and a button to view details.
+ *
+ * @param {Object} movie - The movie details to create a card for.
+ * @returns {HTMLElement} - The movie card element.
+ */
 function createMovieCard(movie) {
-    // Récupérer le template
     const template = document.getElementById('movie-card-template').content.cloneNode(true);
-
-    // Mettre à jour les éléments avec les données du film
     const movieCard = template.querySelector('.movie-card');
     const movieImage = template.querySelector('.movie-card__image');
     const movieTitle = template.querySelector('.movie-card__title');
@@ -66,13 +110,18 @@ function createMovieCard(movie) {
     movieImage.alt = `Affiche de ${movie.title}`;
     movieTitle.textContent = movie.title;
 
-    // Attacher l'événement d'ouverture de la modale
     detailsButton.addEventListener('click', () => openModal(movie));
 
     return movieCard;
 }
 
-// Fonction d'affichage du meilleur film
+/**
+ * Creates a movie card for a given movie.
+ * The card contains the movie's image, title, and a button to view details.
+ *
+ * @param {Object} movie - The movie details to create a card for.
+ * @returns {HTMLElement} - The movie card element.
+ */
 async function displayTopMovie() {
     try {
         const moviesData = await fetchMovies('sort_by=-imdb_score,-votes&page_size=1');
@@ -81,30 +130,30 @@ async function displayTopMovie() {
     } catch (error) {
         console.error('Erreur lors de l\'affichage du meilleur film :', error);
     }
-
 }
 
+/**
+ * Fetches and displays top movies from all categories or a specific one.
+ *
+ * @async
+ * @param {string} category - The category of movies (e.g., 'top', 'Comedy').
+ * @param {string} containerSelector - The CSS selector of the container where the movies will be displayed.
+ * @returns {Promise<void>} - A promise that resolves once the category movies are displayed.
+ */
 async function displayCategoryMovies(category, containerSelector) {
     let queryParams = '';
-
-    // Si la catégorie est "top", ajuster la requête pour afficher les films les mieux notés
     if (category === 'top') {
         queryParams = 'sort_by=-imdb_score,-votes&page_size=7';
     } else {
-        // Si une catégorie spécifique est sélectionnée, filtrer par genre
         queryParams = `genre=${category}&sort_by=-imdb_score,-votes&page_size=6`;
     }
 
     try {
-        // Récupérer les films de la catégorie ou les films les mieux notés
         const moviesData = await fetchMovies(queryParams);
-        // Si on est dans la catégorie "top", exclure le premier film
         let moviesToDisplay = moviesData.results;
         if (category === 'top') {
-            moviesToDisplay = moviesToDisplay.slice(1); // Exclure le premier résultat
+            moviesToDisplay = moviesToDisplay.slice(1);
         }
-
-        // Récupérer les détails des films (sauf le premier si 'top')
         const categoryMoviesDetails = await Promise.all(
             moviesToDisplay.map(movie => fetchMovieDetails(movie.id))
         );
@@ -114,11 +163,19 @@ async function displayCategoryMovies(category, containerSelector) {
     }
 }
 
-// Fonction d'ouverture de la modale
+// ==========================
+//4. Modal Management Functions
+// ==========================
+
+/**
+ * Opens a modal window with the details of the selected movie.
+ * Updates the modal's content with the movie's title, image, genres, etc.
+ *
+ * @param {Object} movieDetails - The details of the movie to display in the modal.
+ */
 function openModal(movieDetails) {
     const modal = document.getElementById('modal');
 
-    // Mise à jour du contenu de la modale
     modal.querySelector('.modal__title').textContent = movieDetails.title;
     modal.querySelector('.modal__image').src = movieDetails.image_url;
     modal.querySelector('.modal__image').alt = `Affiche de ${movieDetails.title}`;
@@ -133,25 +190,33 @@ function openModal(movieDetails) {
     modal.querySelector('.modal__long_description').textContent = movieDetails.long_description;
     modal.querySelector('.modal__actors--list').textContent = movieDetails.actors.join(', ');
 
-    // Afficher la modale
     modal.classList.remove('modal--hidden');
 }
 
-// Fonction d'initialisation des événements de fermeture de la modale
+
+/**
+ * Initializes the modal's close events.
+ * Closes the modal when clicking outside of it or on the close button.
+ */
 function initializeModalCloseEvents() {
     const modal = document.getElementById('modal');
     const closeButton = document.querySelector('.modal__close-button');
-
-    // Fermer la modale au clic sur le bouton de fermeture
     closeButton.addEventListener('click', () => modal.classList.add('modal--hidden'));
-
-    // Fermer la modale si clic à l'extérieur de la zone de contenu
     window.addEventListener('click', (event) => {
         if (event.target === modal) modal.classList.add('modal--hidden');
     });
 }
 
-// Fonction de récupération de tous les genres
+// ==========================
+// 5. Genre Management and Dropdown
+// ==========================
+
+/**
+ * Fetches all available genres from the API and populates the genre dropdown.
+ *
+ * @async
+ * @returns {Promise<void>} - A promise that resolves once all genres are fetched and populated.
+ */
 async function fetchAllGenres() {
     let url = `http://localhost:8000/api/v1/genres/`;
     let allGenres = [];
@@ -169,7 +234,11 @@ async function fetchAllGenres() {
     }
 }
 
-// Fonction de remplissage de la liste déroulante avec les genres
+/**
+ * Populates the genre dropdown with the fetched genres.
+ *
+ * @param {Array<string>} genres - The list of genres to populate the dropdown.
+ */
 function populateGenreDropdown(genres) {
     const dropdown = document.getElementById('categories-select');
     dropdown.innerHTML = '<option value="">Sélectionnez un genre</option>';
@@ -182,70 +251,87 @@ function populateGenreDropdown(genres) {
     });
 }
 
-// Gestion du changement de catégorie dans la liste déroulante
+/**
+ * Event listener for the genre dropdown change event.
+ * Fetches and displays movies for the selected genre.
+ */
 document.getElementById('categories-select').addEventListener('change', (event) => {
     const selectedGenre = event.target.value;
     if (selectedGenre) displayCategoryMovies(selectedGenre, '.category--genres .category__grid');
 });
 
 
+// ==========================
+// 6. "Show More" Button Management Functions
+// ==========================
 
-// Fonction pour gérer l'ajout du bouton "Voir plus" si nécessaire
+/**
+ * Manages the "Show More" button for movie lists.
+ * Adds the button if the number of movies exceeds the visible threshold.
+ *
+ * @param {HTMLElement} container - The container holding the movie cards.
+ * @param {number} totalMovies - The total number of movies in the list.
+ */
 function manageToggleButton(container, totalMovies) {
-    // Nombre de films visibles par défaut en fonction de la taille de l'écran
+
     let visibleMovies;
     if (window.innerWidth <= 600) {
         visibleMovies = 2; // Mobile
     } else if (window.innerWidth <= 1024) {
-        visibleMovies = 4; // Tablette
+        visibleMovies = 4; // Tablet
     } else {
-        visibleMovies = 6; // Ordinateur
+        visibleMovies = 6; // Desktop
     }
-// Vérifier si un bouton "Voir plus" existe déjà pour cette catégorie
+
     const existingButton = container.parentNode.querySelector('.toggle-button');
 
-    // Ajouter un bouton "Voir plus" seulement si aucun bouton n'existe déjà et qu'il y a plus de films que visibles
     if (!existingButton && totalMovies > visibleMovies && window.innerWidth < 1024) {
         const button = document.createElement('button');
         button.classList.add('toggle-button');
         button.textContent = 'Voir plus';
-        container.parentNode.appendChild(button); // Ajouter le bouton après la grille des films
+        container.parentNode.appendChild(button); // Add bouton at the end of the movies grid
 
-        // Ajouter l'événement au bouton pour afficher/masquer les films cachés
+        // Add event to the button to display/masque hidden movies
         button.addEventListener('click', () => toggleMovies(container, visibleMovies, button));
     }
 }
 
-// Fonction pour afficher les films cachés
-function showMoreMovies(container, visibleMovies, button) {
-    // Afficher les films cachés
-    const hiddenMovies = container.querySelectorAll(`.movie-card:nth-child(n+${visibleMovies + 1})`);
-    hiddenMovies.forEach(movie => movie.style.display = 'block');
-
-    // Masquer le bouton après l'affichage des films cachés
-    button.style.display = 'none';
-}
+/**
+ * Toggles the visibility of hidden movie cards when the "Show More" button is clicked.
+ *
+ * @param {HTMLElement} container - The container holding the movie cards.
+ * @param {number} visibleMovies - The number of movies visible without scrolling.
+ * @param {HTMLElement} button - The "Show More" button element.
+ */
 function toggleMovies(container, visibleMovies, button) {
     const hiddenMovies = container.querySelectorAll(`.movie-card:nth-child(n+${visibleMovies + 1})`);
 
     if (button.textContent === 'Voir plus') {
-        // Afficher les films cachés
+        // Display hidden movies
         hiddenMovies.forEach(movie => movie.style.display = 'block');
         button.textContent = 'Voir moins';
     } else {
-        // Revenir à l'état initial (masquer les films)
+        // Go back to the initial state (hidden movies)
         hiddenMovies.forEach(movie => movie.style.display = 'none');
         button.textContent = 'Voir plus';
     }
 }
 
+// ==========================
+// 7. Global Events and Initialization
+// ==========================
+
+/**
+ * Sets up the necessary event listeners and initializes the app by displaying movies.
+ */
 window.addEventListener('resize', () => {
     document.querySelectorAll('.category__grid').forEach(container => {
         const totalMovies = container.children.length;
         manageToggleButton(container, totalMovies); // Recalcule l'affichage du bouton selon la taille de l'écran
     });
 });
-// Initialisation des événements et affichage des films
+
+
 initializeModalCloseEvents();
 displayTopMovie();
 displayCategoryMovies('top', '.top-movies .category__grid')
