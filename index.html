@@ -43,35 +43,34 @@
   </div>
 </section>
 
-<!-- Block : category--3-->
+<!-- Block : category--3 : all genres -->
 <section class=" category category--genres">
   <h2 class="category__title">Autres</h2>
   <label for="categories-select">Choisir une catégorie :</label>
-  <select id="categories-select">
+  <select class="category__select" id="categories-select">
     <option value="">Sélectionnez un genre</option>
   </select>
     <div class="category__grid">
     </div>
-
 </section>
 
 <!-- Template for best movie article-->
-<template id="best-movie-template">
+<template class="best-movie-template">
     <img src="" alt="" class="best-movie__image">
     <div class="best-movie__info">
       <h3 class="best-movie__title"></h3>
       <p class="best-movie__summary"></p>
-      <button class="button button__details--primary" aria-label="Voir les détails du film">Détails</button>
+      <button class="button__details--primary" aria-label="Voir les détails du film">Détails</button>
     </div>
 </template>
 
 <!-- Template for movie cards -->
-<template id="movie-card-template">
+<template class="movie-card-template">
   <div class="movie-card">
     <img src="" alt="" class="movie-card__image">
     <div class="movie-card__overlay">
       <h3 class="movie-card__title"></h3>
-      <button class="button__details--secondary button button__details--primary" aria-label="Voir les détails du film">Détails</button>
+      <button class=" button button__details--secondary" aria-label="Voir les détails du film">Détails</button>
     </div>
   </div>
 </template>

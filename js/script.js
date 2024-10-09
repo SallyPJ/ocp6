@@ -63,7 +63,7 @@ const fetchMovieDetails = (movieId) => fetchApiData(movieId);
  * @param {HTMLElement} container - The container element where the movie will be displayed.
  */
 function displayMovie(movieDetails, container) {
-    const template = document.getElementById('best-movie-template').content.cloneNode(true);
+    const template = document.querySelector('.best-movie-template').content.cloneNode(true);
     const movieImage = template.querySelector('.best-movie__image');
     const movieTitle = template.querySelector('.best-movie__title');
     const movieSummary = template.querySelector('.best-movie__summary');
@@ -100,7 +100,7 @@ function displayMoviesList(moviesDetails, container) {
  * @returns {HTMLElement} - The movie card element.
  */
 function createMovieCard(movie) {
-    const template = document.getElementById('movie-card-template').content.cloneNode(true);
+    const template = document.querySelector('.movie-card-template').content.cloneNode(true);
     const movieCard = template.querySelector('.movie-card');
     const movieImage = template.querySelector('.movie-card__image');
     const movieTitle = template.querySelector('.movie-card__title');
@@ -240,7 +240,7 @@ async function fetchAllGenres() {
  * @param {Array<string>} genres - The list of genres to populate the dropdown.
  */
 function populateGenreDropdown(genres) {
-    const dropdown = document.getElementById('categories-select');
+    const dropdown = document.querySelector('.category__select');
     dropdown.innerHTML = '<option value="">Sélectionnez un genre</option>';
 
     genres.forEach(genre => {
@@ -255,7 +255,7 @@ function populateGenreDropdown(genres) {
  * Event listener for the genre dropdown change event.
  * Fetches and displays movies for the selected genre.
  */
-document.getElementById('categories-select').addEventListener('change', (event) => {
+document.querySelector('.category__select').addEventListener('change', (event) => {
     const selectedGenre = event.target.value;
     if (selectedGenre) displayCategoryMovies(selectedGenre, '.category--genres .category__grid');
 });
