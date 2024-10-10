@@ -11,12 +11,12 @@ body {
 }
 h1 {
     margin: 0;
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: lighter;
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: 600;
 }
 
@@ -105,6 +105,7 @@ header {
 /* ===============================
    4. Category Section
    ============================== */
+
 .category__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -118,7 +119,6 @@ header {
     overflow: hidden;
     padding: 20px;
 }
-
 
 .category__button--toggle {
     background-color: #FA0B0B;
@@ -136,6 +136,54 @@ header {
 
 .category__button--toggle:hover {
     background-color: #c00;
+}
+
+.category--genres{
+    margin-top: 2rem;
+}
+
+.category--genres .category__title {
+    display: inline;
+    margin-right : 1em;
+}
+
+.category__select .category__select--option {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
+    background-color: white;
+
+}
+
+.category__select {
+    display: inline;
+    width: 100%;
+    max-width: 350px;
+    padding: 0.2rem;
+    margin: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    box-sizing: border-box;
+    max-height: 150px;
+    overflow-y: auto;/* Adjust the height to fit approximately 5 options */
+
+
+}
+
+.category__select--option  {
+    padding: 10px;
+    overflow-y: auto;
+    height: 500px;
+
+}
+
+.category__select:focus {
+    outline: none;
+    border-color: gray;
 }
 
 /* ===============================
@@ -325,6 +373,7 @@ header {
     grid-column: 2;
     grid-row: 1;
     align-self: start;
+    justify-self: end;
     max-width: 100%;
     height: auto;
     object-fit: cover;

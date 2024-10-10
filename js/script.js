@@ -181,7 +181,7 @@ function openModal(movieDetails) {
     modal.querySelector('.modal__image').alt = `Affiche de ${movieDetails.title}`;
     modal.querySelector('.modal__year').textContent = `Année : ${movieDetails.year} `;
     modal.querySelector('.modal__genres').textContent = movieDetails.genres.join(', ');
-    modal.querySelector('.modal__rated').textContent = movieDetails.rated && movieDetails.rated.toLowerCase().includes('not rated') ? 'PG Inconnu ' : `PG: ${movieDetails.rated} -`;
+    modal.querySelector('.modal__rated').textContent = movieDetails.rated && movieDetails.rated.toLowerCase().includes('not rated') ? 'PG Inconnu ' : `PG: ${movieDetails.rated} `;
     modal.querySelector('.modal__duration--value').textContent = movieDetails.duration;
     modal.querySelector('.modal__countries').textContent = `(${movieDetails.countries.join('/ ')})`;
     modal.querySelector('.modal__imdb_score--value').textContent = movieDetails.imdb_score || 'Non noté';
@@ -241,12 +241,20 @@ async function fetchAllGenres() {
  */
 function populateGenreDropdown(genres) {
     const dropdown = document.querySelector('.category__select');
-    dropdown.innerHTML = '<option value="">Sélectionnez un genre</option>';
+    dropdown.innerHTML = ''; // Clear any existing options
 
-    genres.forEach(genre => {
+    // Populate with genres
+    genres.forEach((genre, index) => {
         const option = document.createElement('option');
         option.value = genre.toLowerCase();
         option.textContent = genre;
+
+        // Automatically select the first genre
+        if (index === 0) {
+            option.selected = true;
+            displayCategoryMovies(option.value, '.category--genres .category__grid');
+        }
+
         dropdown.appendChild(option);
     });
 }
@@ -256,8 +264,22 @@ function populateGenreDropdown(genres) {
  * Fetches and displays movies for the selected genre.
  */
 document.querySelector('.category__select').addEventListener('change', (event) => {
-    const selectedGenre = event.target.value;
-    if (selectedGenre) displayCategoryMovies(selectedGenre, '.category--genres .category__grid');
+    const selectElement = event.target;
+    const selectedGenre = selectElement.value;
+
+    // Reset all options by removing the emoji
+    Array.from(selectElement.options).forEach(option => {
+        option.textContent = option.textContent.replace('✅ ', '');
+    });
+
+    // Add emoji to the newly selected option
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    selectedOption.textContent = `${selectedOption.textContent}✅ `;
+
+    // Display movies for the selected genre
+    if (selectedGenre) {
+        displayCategoryMovies(selectedGenre, '.category--genres .category__grid');
+    }
 });
 
 
