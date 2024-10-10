@@ -176,14 +176,14 @@ function openModal(movieDetails) {
 
     modal.querySelector('.modal__title').textContent = movieDetails.title;
     modal.querySelector('.modal__image').src = movieDetails.image_url;
-    modal.querySelector('.modal__image').alt = `Affiche de ${movieDetails.title}`;
-    modal.querySelector('.modal__year').textContent = `Année : ${movieDetails.year} `;
-    modal.querySelector('.modal__genres').textContent = movieDetails.genres.join(', ');
-    modal.querySelector('.modal__rated').textContent = movieDetails.rated && movieDetails.rated.toLowerCase().includes('not rated') ? 'PG Inconnu ' : `PG: ${movieDetails.rated} `;
-    modal.querySelector('.duration__value').textContent = movieDetails.duration;
-    modal.querySelector('.modal__countries').textContent = `(${movieDetails.countries.join('/ ')})`;
-    modal.querySelector('.imdb_score__value').textContent = movieDetails.imdb_score || 'Non noté';
-    modal.querySelector('.income__value').textContent = movieDetails.worldwide_gross_income ? `${movieDetails.worldwide_gross_income} dollars` : 'Inconnue';
+    modal.querySelector('.modal__image').alt =`Affiche de ${movieDetails.title}`;
+    modal.querySelector('.movie_details__year').textContent =` ${movieDetails.year} - `;
+    modal.querySelector('.movie_details__genres').textContent = movieDetails.genres.join(', ');
+    modal.querySelector('.movie_details__rated').textContent = movieDetails.rated && movieDetails.rated.toLowerCase().includes('not rated') ? 'PG Inconnu ' : `PG: ${movieDetails.rated} `;
+    modal.querySelector('.movie_details__duration').textContent = ` - ${movieDetails.duration} minutes`;
+    modal.querySelector('.movie_details__countries').textContent =`(${movieDetails.countries.join('/ ')})`;
+    modal.querySelector('.movie_details__imdb_score').textContent =`Score IMBD : ${movieDetails.imdb_score}` ;
+    modal.querySelector('.movie_details__income').textContent = movieDetails.worldwide_gross_income ? `Recette globale : ${movieDetails.worldwide_gross_income} dollars` : ' Recette globale Inconnue';
     modal.querySelector('.director__name').textContent = movieDetails.directors.join(', ') || 'Inconnu';
     modal.querySelector('.modal__long_description').textContent = movieDetails.long_description;
     modal.querySelector('.actors__list').textContent = movieDetails.actors.join(', ');
