@@ -50,7 +50,7 @@ header {
    3. Best Movie Article Section
    ============================== */
 
-.best-movie__content {
+.best_movie__content {
     display: grid;
     position: relative;
     width: 100%;
@@ -59,7 +59,7 @@ header {
     grid-template-columns: auto 1fr;
 }
 
-.best-movie__image{
+.best_movie__image{
     margin : 0.5em;
     grid-column: 1;
     height: 350px;
@@ -68,25 +68,25 @@ header {
     object-position: center;
 }
 
-.best-movie__info {
+.best_movie__info {
     grid-column: 2;
     display: grid;
     grid-template-rows: auto 1fr auto;
 
 }
-.best-movie__title {
+.best_movie__title {
     font-size: 2em;
     font-weight: bold;
     padding: 0;
     margin: 0.5em;
 }
 
-.best-movie__summary {
+.best_movie__summary {
     font-size: 1.2em;
     font-weight: lighter;
 }
 
-.best-movie__button--details {
+.best_movie__details_button {
     background-color: #FA0B0B;
     border-radius : 25px;
     justify-self: end;
@@ -98,7 +98,7 @@ header {
     margin-right: 0.5em;
 }
 
-.best-movie__button--details:hover {
+.best_movie__details_button:hover {
     background-color: #c00;
 }
 
@@ -120,7 +120,7 @@ header {
     padding: 20px;
 }
 
-.category__button--toggle {
+.category__toggle_button {
     background-color: #FA0B0B;
     color: white;
     padding: 0.5em 4em;
@@ -134,7 +134,7 @@ header {
     text-align: center;
 }
 
-.category__button--toggle:hover {
+.category__toggle_button:hover {
     background-color: #c00;
 }
 
@@ -147,7 +147,7 @@ header {
     margin-right : 1em;
 }
 
-.category__select .category__select--option {
+.category__select .select__option {
     font-size: 1.5rem;
     font-weight: 600;
     font-family: 'Oswald', sans-serif;
@@ -174,7 +174,7 @@ header {
 
 }
 
-.category__select--option  {
+.select__option  {
     padding: 10px;
     overflow-y: auto;
     height: 500px;
@@ -190,7 +190,7 @@ header {
    5. Movie Card Section
    ============================== */
 
-.movie-card {
+.movie_card {
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -198,14 +198,14 @@ header {
     max-width: 300px;
 }
 
-.movie-card__image {
+.movie_card__image {
     display: block;
     width: 100%;
     height: auto;
     object-fit: cover;
 }
 
-.movie-card__overlay {
+.movie_card__overlay {
     position: absolute;
     top: 20%;
     left: 0;
@@ -221,7 +221,7 @@ header {
     transition: opacity 0.3s ease;
 }
 
-.movie-card__title {
+.movie_card__title {
     color: #fff;
     grid-column: 1;
     grid-row: 1;
@@ -235,7 +235,7 @@ header {
     align-self: start;
 }
 
-.movie-card__button--details {
+.movie_card__details_button {
     background-color: #2D2C2C;
     color: #fff;
     grid-column : 2;
@@ -256,7 +256,7 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.movie-card__button--details:hover {
+.movie_card__details_button:hover {
     background-color: #666;
 }
 
@@ -312,7 +312,7 @@ header {
 .modal__duration,
 .modal__countries,
 .modal__imdb_score,
-.modal__worldwide_gross_income,
+.modal__income,
 .modal__director {
     margin: 0;
     padding: 0;
@@ -355,7 +355,7 @@ header {
     grid-row : 4;
 }
 
-.modal__worldwide_gross_income {
+.modal__income {
     grid-column: 1 / 4;
     grid-row: 5;
 }
@@ -365,7 +365,7 @@ header {
     grid-row: 6;
 }
 
-.modal__director--name{
+.director__name{
     font-weight: lighter;
 }
 
@@ -419,7 +419,7 @@ header {
     }
 
 
-    .category__grid > .movie-card:nth-child(n+5) {
+    .category__grid > .movie_card:nth-child(n+5) {
         display: none;
     }
 
@@ -460,7 +460,7 @@ header {
         grid-row: 5;
     }
 
-    .category__button--toggle {
+    .category__toggle_button {
         display: block;
     }
 }
@@ -501,11 +501,11 @@ header {
         overflow: visible;
     }
 
-    .category__grid > .movie-card:nth-child(n+3) {
+    .category__grid > .movie_card:nth-child(n+3) {
         display: none;
     }
 
-    .best-movie__content {
+    .best_movie__content {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -513,7 +513,7 @@ header {
         padding: 1em;
     }
 
-    .best-movie__image {
+    .best_movie__image {
         width: 100%;
         height: 100%;
         max-height: 400px;
@@ -522,7 +522,7 @@ header {
 
     }
 
-    .category__button--toggle {
+    .category__toggle_button {
         display: block;
         clear: both;
         margin-top: 20px;

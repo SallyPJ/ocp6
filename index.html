@@ -17,13 +17,13 @@
 </header>
 
 <!-- Block : best-movie -->
-<section class="best-movie">
-  <h2 class="best-movie__title">Meilleur film</h2>
-  <article class="best-movie__content"></article>
+<section class="best_movie">
+  <h2 class="best_movie__title">Meilleur film</h2>
+  <article class="best_movie__content"></article>
 </section>
 
 <!-- Block : top-movies-->
-<section class="category top-movies">
+<section class="category top_movies">
   <h2 class="category__title">Films les mieux notés</h2>
   <div class="category__grid">
   </div>
@@ -54,22 +54,22 @@
 </section>
 
 <!-- Template for best movie article-->
-<template class="template__best-movie">
-    <img src="" alt="" class="best-movie__image">
-    <div class="best-movie__info">
-      <h3 class="best-movie__title"></h3>
-      <p class="best-movie__summary"></p>
-      <button class="button best-movie__button--details" aria-label="Voir les détails du film">Détails</button>
+<template class="template__best_movie">
+    <img class="best_movie__image" src="" alt="" >
+    <div class="best_movie__info">
+      <h3 class="best_movie__title"></h3>
+      <p class="best_movie__summary"></p>
+      <button class="button best_movie__details_button" aria-label="Voir les détails du film">Détails</button>
     </div>
 </template>
 
 <!-- Template for movie cards -->
-<template class="template__movie-card">
-  <div class="movie-card">
-    <img src="" alt="" class="movie-card__image">
-    <div class="movie-card__overlay">
-      <h3 class="movie-card__title"></h3>
-      <button class=" button movie-card__button--details" aria-label="Voir les détails du film">Détails</button>
+<template class="template__movie_card">
+  <div class="movie_card">
+    <img src="" alt="" class="movie_card__image">
+    <div class="movie_card__overlay">
+      <h3 class="movie_card__title"></h3>
+      <button class=" button movie_card__details_button" aria-label="Voir les détails du film">Détails</button>
     </div>
   </div>
 </template>
@@ -83,28 +83,28 @@
       <p class="modal__genres"></p>
       <p class="modal__rated"></p>
       <p class="modal__duration">
-        <span class="modal__duration--value"></span>
-        <span class="modal__duration--unit">minutes</span>
+        <span class="duration__value"></span>
+        <span class="duration__unit">minutes</span>
       </p>
       <p class="modal__countries"></p>
       <p class ="modal__imdb_score">
-        <span class="modal__imdb_score--title">Score IMDB : </span>
-        <span class="modal__imdb_score--value"></span>
+        <span class="imdb_score__title">Score IMDB : </span>
+        <span class="imdb_score__value"></span>
       </p>
-      <p class="modal__worldwide_gross_income">
-        <span class="modal__worldwide-gross-income--title">Recette : </span>
-        <span class="modal__worldwide-gross-income--value"></span>
+      <p class="modal__income">
+        <span class="income__title">Recette : </span>
+        <span class="income__value"></span>
       </p>
       <p class="modal__director">
-        <span class="modal__director--title"> Réalisé par : </span>
-        <span class="modal__director--name"></span>
+        <span class="director__title"> Réalisé par : </span>
+        <span class="director__name"></span>
       </p>
     </div>
     <img class="modal__image" src="" alt="">
     <p class="modal__long_description"></p>
     <p class="modal__actors">
-    <span class="modal__actors--title"> Avec : </span>
-    <span class="modal__actors--list"></span>
+    <span class="actors__title"> Avec : </span>
+    <span class="actors__list"></span>
     </p>
     <button class=" button modal__button--close">Fermer</button>
   </div>

@@ -63,11 +63,11 @@ const fetchMovieDetails = (movieId) => fetchApiData(movieId);
  * @param {HTMLElement} container - The container element where the movie will be displayed.
  */
 function displayMovie(movieDetails, container) {
-    const template = document.querySelector('.template__best-movie').content.cloneNode(true);
-    const movieImage = template.querySelector('.best-movie__image');
-    const movieTitle = template.querySelector('.best-movie__title');
-    const movieSummary = template.querySelector('.best-movie__summary');
-    const detailsButton = template.querySelector('.best-movie__button--details');
+    const template = document.querySelector('.template__best_movie').content.cloneNode(true);
+    const movieImage = template.querySelector('.best_movie__image');
+    const movieTitle = template.querySelector('.best_movie__title');
+    const movieSummary = template.querySelector('.best_movie__summary');
+    const detailsButton = template.querySelector('.best_movie__details_button');
 
     movieImage.src = movieDetails.image_url;
     movieImage.alt = `Affiche de ${movieDetails.title}`;
@@ -100,11 +100,11 @@ function displayMoviesList(moviesDetails, container) {
  * @returns {HTMLElement} - The movie card element.
  */
 function createMovieCard(movie) {
-    const template = document.querySelector('.template__movie-card').content.cloneNode(true);
-    const movieCard = template.querySelector('.movie-card');
-    const movieImage = template.querySelector('.movie-card__image');
-    const movieTitle = template.querySelector('.movie-card__title');
-    const detailsButton = template.querySelector('.movie-card__button--details');
+    const template = document.querySelector('.template__movie_card').content.cloneNode(true);
+    const movieCard = template.querySelector('.movie_card');
+    const movieImage = template.querySelector('.movie_card__image');
+    const movieTitle = template.querySelector('.movie_card__title');
+    const detailsButton = template.querySelector('.movie_card__details_button');
 
     movieImage.src = movie.image_url;
     movieImage.alt = `Affiche de ${movie.title}`;
@@ -116,17 +116,15 @@ function createMovieCard(movie) {
 }
 
 /**
- * Creates a movie card for a given movie.
- * The card contains the movie's image, title, and a button to view details.
+ * Fetch and display the top movie card.
+ * @async
  *
- * @param {Object} movie - The movie details to create a card for.
- * @returns {HTMLElement} - The movie card element.
  */
 async function displayTopMovie() {
     try {
         const moviesData = await fetchMovies('sort_by=-imdb_score,-votes&page_size=1');
         const topMovieDetails = await fetchMovieDetails(moviesData.results[0].id);
-        displayMovie(topMovieDetails, document.querySelector('.best-movie__content'));
+        displayMovie(topMovieDetails, document.querySelector('.best_movie__content'));
     } catch (error) {
         console.error('Erreur lors de l\'affichage du meilleur film :', error);
     }
@@ -182,13 +180,13 @@ function openModal(movieDetails) {
     modal.querySelector('.modal__year').textContent = `Année : ${movieDetails.year} `;
     modal.querySelector('.modal__genres').textContent = movieDetails.genres.join(', ');
     modal.querySelector('.modal__rated').textContent = movieDetails.rated && movieDetails.rated.toLowerCase().includes('not rated') ? 'PG Inconnu ' : `PG: ${movieDetails.rated} `;
-    modal.querySelector('.modal__duration--value').textContent = movieDetails.duration;
+    modal.querySelector('.duration__value').textContent = movieDetails.duration;
     modal.querySelector('.modal__countries').textContent = `(${movieDetails.countries.join('/ ')})`;
-    modal.querySelector('.modal__imdb_score--value').textContent = movieDetails.imdb_score || 'Non noté';
-    modal.querySelector('.modal__worldwide-gross-income--value').textContent = movieDetails.worldwide_gross_income ? `${movieDetails.worldwide_gross_income} dollars` : 'Inconnue';
-    modal.querySelector('.modal__director--name').textContent = movieDetails.directors.join(', ') || 'Inconnu';
+    modal.querySelector('.imdb_score__value').textContent = movieDetails.imdb_score || 'Non noté';
+    modal.querySelector('.income__value').textContent = movieDetails.worldwide_gross_income ? `${movieDetails.worldwide_gross_income} dollars` : 'Inconnue';
+    modal.querySelector('.director__name').textContent = movieDetails.directors.join(', ') || 'Inconnu';
     modal.querySelector('.modal__long_description').textContent = movieDetails.long_description;
-    modal.querySelector('.modal__actors--list').textContent = movieDetails.actors.join(', ');
+    modal.querySelector('.actors__list').textContent = movieDetails.actors.join(', ');
 
     modal.classList.remove('modal--hidden');
 }
@@ -305,11 +303,11 @@ function manageToggleButton(container, totalMovies) {
         visibleMovies = 6; // Desktop
     }
 
-    const existingButton = container.parentNode.querySelector('.category__button--toggle');
+    const existingButton = container.parentNode.querySelector('.category__toggle_button');
 
     if (!existingButton && totalMovies > visibleMovies && window.innerWidth < 1024) {
         const button = document.createElement('button');
-        button.classList.add('category__button--toggle');
+        button.classList.add('category__toggle_button');
         button.textContent = 'Voir plus';
         container.parentNode.appendChild(button); // Add bouton at the end of the movies grid
 
@@ -326,7 +324,7 @@ function manageToggleButton(container, totalMovies) {
  * @param {HTMLElement} button - The "Show More" button element.
  */
 function toggleMovies(container, visibleMovies, button) {
-    const hiddenMovies = container.querySelectorAll(`.movie-card:nth-child(n+${visibleMovies + 1})`);
+    const hiddenMovies = container.querySelectorAll(`.movie_card:nth-child(n+${visibleMovies + 1})`);
 
     if (button.textContent === 'Voir plus') {
         // Display hidden movies
@@ -356,7 +354,7 @@ window.addEventListener('resize', () => {
 
 initializeModalCloseEvents();
 displayTopMovie();
-displayCategoryMovies('top', '.top-movies .category__grid')
+displayCategoryMovies('top', '.top_movies .category__grid')
 displayCategoryMovies('Crime', '.category--1 .category__grid');
 displayCategoryMovies('Comedy', '.category--2 .category__grid');
 fetchAllGenres();
