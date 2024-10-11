@@ -147,7 +147,7 @@ header {
     margin-right : 1em;
 }
 
-.category__select .select__option {
+.category__select  {
     font-size: 1.5rem;
     font-weight: 600;
     font-family: 'Oswald', sans-serif;
@@ -174,12 +174,6 @@ header {
 
 }
 
-.select__option  {
-    padding: 10px;
-    overflow-y: auto;
-    height: 500px;
-
-}
 
 .category__select:focus {
     outline: none;

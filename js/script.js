@@ -139,7 +139,7 @@ async function displayTopMovie() {
  * @returns {Promise<void>} - A promise that resolves once the category movies are displayed.
  */
 async function displayCategoryMovies(category, containerSelector) {
-    let queryParams = '';
+    let queryParams;
     if (category === 'top') {
         queryParams = 'sort_by=-imdb_score,-votes&page_size=7';
     } else {
@@ -222,6 +222,9 @@ async function fetchAllGenres() {
     try {
         while (url) {
             const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
+            }
             const data = await response.json();
             allGenres = [...allGenres, ...data.results.map(genre => genre.name)];
             url = data.next; // Mettre à jour l'URL pour la page suivante
@@ -229,6 +232,7 @@ async function fetchAllGenres() {
         populateGenreDropdown(allGenres);
     } catch (error) {
         console.error('Erreur lors de la récupération des genres :', error);
+        throw error;
     }
 }
 
@@ -265,16 +269,13 @@ document.querySelector('.category__select').addEventListener('change', (event) =
     const selectElement = event.target;
     const selectedGenre = selectElement.value;
 
-    // Reset all options by removing the emoji
     Array.from(selectElement.options).forEach(option => {
         option.textContent = option.textContent.replace('✅ ', '');
     });
 
-    // Add emoji to the newly selected option
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     selectedOption.textContent = `${selectedOption.textContent}✅ `;
 
-    // Display movies for the selected genre
     if (selectedGenre) {
         displayCategoryMovies(selectedGenre, '.category--genres .category__grid');
     }
