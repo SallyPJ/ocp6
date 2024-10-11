@@ -70,8 +70,8 @@ function displayMovie(movieDetails, container) {
     const detailsButton = template.querySelector('.best_movie__details_button');
 
     movieImage.src = movieDetails.image_url;
-    movieImage.alt = `Affiche de ${movieDetails.title}`;
-    movieTitle.textContent = movieDetails.title;
+    movieImage.alt = `Affiche de ${movieDetails.original_title}`;
+    movieTitle.textContent = movieDetails.original_title;
     movieSummary.textContent = movieDetails.description || 'Résumé non disponible.';
     detailsButton.addEventListener('click', () => openModal(movieDetails));
 
@@ -107,8 +107,8 @@ function createMovieCard(movie) {
     const detailsButton = template.querySelector('.movie_card__details_button');
 
     movieImage.src = movie.image_url;
-    movieImage.alt = `Affiche de ${movie.title}`;
-    movieTitle.textContent = movie.title;
+    movieImage.alt = `Affiche de ${movie.original_title}`;
+    movieTitle.textContent = movie.original_title;
 
     detailsButton.addEventListener('click', () => openModal(movie));
 
@@ -174,7 +174,7 @@ async function displayCategoryMovies(category, containerSelector) {
 function openModal(movieDetails) {
     const modal = document.getElementById('modal');
 
-    modal.querySelector('.modal__title').textContent = movieDetails.title;
+    modal.querySelector('.modal__title').textContent = movieDetails.original_title;
     modal.querySelector('.modal__image').src = movieDetails.image_url;
     modal.querySelector('.modal__image').alt =`Affiche de ${movieDetails.title}`;
     modal.querySelector('.movie_details__year').textContent =` ${movieDetails.year} - `;
